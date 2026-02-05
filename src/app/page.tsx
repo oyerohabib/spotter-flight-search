@@ -20,9 +20,17 @@ export default function HomePage({
             typeof searchParams.return === "string"
               ? searchParams.return
               : undefined,
+          tripType:
+            typeof searchParams.tripType === "string"
+              ? searchParams.tripType
+              : undefined,
           adults:
             typeof searchParams.adults === "string"
               ? searchParams.adults
+              : undefined,
+          travelClass:
+            typeof searchParams.travelClass === "string"
+              ? searchParams.travelClass
               : undefined,
         }
       : undefined;

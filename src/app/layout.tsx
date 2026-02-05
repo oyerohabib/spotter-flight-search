@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Link from "next/link";
+import Image from "next/image";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Spotter Flights",
-  description: "Responsive flight search MVP (round-trip)",
+  title: "Spotter Flights By Oyero Habib",
+  description: "Responsive flight search MVP (round-trip) by Oyero Habib",
 };
 
 export default function RootLayout({
@@ -20,14 +22,29 @@ export default function RootLayout({
         <div className="min-h-screen pb-16">
           <header className="border-b">
             <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
-              <div className="flex items-center gap-2">
-                <div className="h-3 w-3 rounded-full bg-spotter-primary" />
+              <Link href="/" className="flex items-center gap-2">
+                <Image
+                  src="/spotter-mark.svg"
+                  alt="Spotter Flights"
+                  width={20}
+                  height={20}
+                  className="h-5 w-5"
+                  priority
+                />
                 <span className="text-sm font-semibold tracking-tight">
                   Spotter Flights
                 </span>
-              </div>
+              </Link>
               <div className="text-xs text-[color:var(--muted)]">
-                Test data via Amadeus
+                Test data via{" "}
+                <a
+                  href="https://developers.amadeus.com/self-service"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-medium text-[color:var(--spotter-primary)] hover:underline"
+                >
+                  Amadeus
+                </a>
               </div>
             </div>
           </header>

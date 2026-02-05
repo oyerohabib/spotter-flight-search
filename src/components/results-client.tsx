@@ -55,9 +55,16 @@ export function ResultsClient(props: {
   departureDate: string;
   returnDate: string;
   adults: number;
+  tripType: "round_trip" | "one_way";
+  travelClass: string;
 }) {
-  const { origin, destination, departureDate, returnDate, adults } = props;
-  const canRun = origin && destination && departureDate && returnDate;
+  const { origin, destination, departureDate, returnDate, adults, tripType, travelClass } =
+    props;
+  const canRun =
+    origin &&
+    destination &&
+    departureDate &&
+    (tripType === "one_way" || !!returnDate);
 
   const payload = useMemo(
     () =>
@@ -65,12 +72,18 @@ export function ResultsClient(props: {
         origin,
         destination,
         departureDate,
-        returnDate,
+        ...(tripType === "round_trip" ? { returnDate } : {}),
         adults,
+        tripType,
+        travelClass: travelClass as
+          | "ECONOMY"
+          | "PREMIUM_ECONOMY"
+          | "BUSINESS"
+          | "FIRST",
         max: 50,
         currencyCode: "USD",
       }) satisfies FlightOffersSearchRequest,
-    [origin, destination, departureDate, returnDate, adults],
+    [origin, destination, departureDate, returnDate, adults, tripType, travelClass],
   );
 
   const [state, setState] = useState<State>({ status: "idle" });

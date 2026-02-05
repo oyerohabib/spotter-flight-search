@@ -10,8 +10,10 @@ export type FlightOffersSearchRequest = {
   origin: string;
   destination: string;
   departureDate: string; // YYYY-MM-DD
-  returnDate: string; // YYYY-MM-DD
+  returnDate?: string; // YYYY-MM-DD (required for round-trip)
+  tripType?: "round_trip" | "one_way";
   adults?: number;
+  travelClass?: "ECONOMY" | "PREMIUM_ECONOMY" | "BUSINESS" | "FIRST";
   currencyCode?: string;
   max?: number;
 };

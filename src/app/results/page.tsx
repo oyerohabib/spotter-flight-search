@@ -14,19 +14,35 @@ export default function ResultsPage({
     typeof searchParams.return === "string" ? searchParams.return : "";
   const adults =
     typeof searchParams.adults === "string" ? searchParams.adults : "1";
+  const tripType =
+    typeof searchParams.tripType === "string"
+      ? searchParams.tripType
+      : "round_trip";
+  const travelClass =
+    typeof searchParams.travelClass === "string"
+      ? searchParams.travelClass
+      : "ECONOMY";
 
   return (
     <div className="grid gap-6">
       <section className="rounded-2xl border bg-[color:var(--surface)] p-4 sm:p-6">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="text-xs text-[color:var(--muted)]">Round-trip</div>
+            <div className="text-xs text-[color:var(--muted)]">
+              {tripType === "one_way" ? "One-way" : "Round-trip"} •{" "}
+              {travelClass.replace("_", " ")}
+            </div>
             <h2 className="text-xl font-semibold tracking-tight">
               {origin && destination ? `${origin} → ${destination}` : "Results"}
             </h2>
             <div className="text-sm text-[color:var(--muted)]">
-              {departureDate && returnDate
-                ? `${departureDate} to ${returnDate} • ${adults} adult(s)`
+              {departureDate &&
+              origin &&
+              destination &&
+              (tripType === "one_way" || returnDate)
+                ? tripType === "one_way"
+                  ? `${departureDate} • ${adults} adult(s)`
+                  : `${departureDate} to ${returnDate} • ${adults} adult(s)`
                 : "Missing search parameters"}
             </div>
           </div>
@@ -37,9 +53,12 @@ export default function ResultsPage({
             >
               New search
             </Link>
-            {origin && destination && departureDate && returnDate ? (
+            {origin &&
+            destination &&
+            departureDate &&
+            (tripType === "one_way" || returnDate) ? (
               <Link
-                href={`/?o=${encodeURIComponent(origin)}&d=${encodeURIComponent(destination)}&depart=${encodeURIComponent(departureDate)}&return=${encodeURIComponent(returnDate)}&adults=${encodeURIComponent(adults)}`}
+                href={`/?o=${encodeURIComponent(origin)}&d=${encodeURIComponent(destination)}&depart=${encodeURIComponent(departureDate)}${tripType === "round_trip" ? `&return=${encodeURIComponent(returnDate)}` : ""}&adults=${encodeURIComponent(adults)}&tripType=${encodeURIComponent(tripType)}&travelClass=${encodeURIComponent(travelClass)}`}
                 className="inline-flex items-center justify-center rounded-xl bg-spotter-primary px-4 py-2 text-sm font-medium text-white hover:opacity-95"
               >
                 Edit search
@@ -55,6 +74,8 @@ export default function ResultsPage({
         departureDate={departureDate}
         returnDate={returnDate}
         adults={Number(adults || 1)}
+        tripType={tripType === "one_way" ? "one_way" : "round_trip"}
+        travelClass={travelClass}
       />
     </div>
   );
