@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --spotter-primary: #008080;
+  --spotter-secondary: #f84960;
+  --spotter-other: #bdddde;
+
+  --bg: #ffffff;
+  --fg: #0b1220;
+  --muted: #5b677a;
+  --surface: #f7fafb;
+  --border: color-mix(in srgb, var(--spotter-other) 70%, #000 10%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #050a0f;
+    --fg: #e7eef7;
+    --muted: #a6b2c4;
+    --surface: #0b141c;
+    --border: color-mix(in srgb, var(--spotter-other) 40%, #000 50%);
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+* {
+  border-color: var(--border);
+}
